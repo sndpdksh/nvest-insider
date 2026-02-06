@@ -26,16 +26,23 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - name: Create .env file
-        run: |
-          echo "VITE_AZURE_CLIENT_ID=${{ secrets.VITE_AZURE_CLIENT_ID }}" >> .env
-          echo "VITE_AZURE_TENANT_ID=${{ secrets.VITE_AZURE_TENANT_ID }}" >> .env
-          
+
       - name: Install dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
+        env:
+          VITE_AZURE_CLIENT_ID: ${{ secrets.VITE_AZURE_CLIENT_ID }}
+          VITE_AZURE_TENANT_ID: ${{ secrets.VITE_AZURE_TENANT_ID }}
+          VITE_GROQ_API_KEY: ${{ secrets.VITE_GROQ_API_KEY }}
+          VITE_GROQ_MODEL: ${{ secrets.VITE_GROQ_MODEL }}
+          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+          VITE_GEMINI_MODEL: ${{ secrets.VITE_GEMINI_MODEL }}
+          VITE_AZURE_OPENAI_ENDPOINT: ${{ secrets.VITE_AZURE_OPENAI_ENDPOINT }}
+          VITE_AZURE_OPENAI_API_KEY: ${{ secrets.VITE_AZURE_OPENAI_API_KEY }}
+          VITE_AZURE_OPENAI_DEPLOYMENT: ${{ secrets.VITE_AZURE_OPENAI_DEPLOYMENT }}
+          VITE_AZURE_OPENAI_API_VERSION: ${{ secrets.VITE_AZURE_OPENAI_API_VERSION }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
